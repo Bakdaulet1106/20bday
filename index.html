@@ -1,0 +1,102 @@
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>20-летие Армана Бақдәулет Арманұлы</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Roboto:wght@300;400;500&display=swap">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <!-- Matrix Rain Background -->
+    <canvas id="matrixCanvas"></canvas>
+    
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Header -->
+        <header class="header">
+            <h1 class="main-title">20-ЛЕТИЕ</h1>
+            <div class="subtitle">Арман Бақдәулет Арманұлы</div>
+        </header>
+
+        <!-- Timer Section -->
+        <section class="timer-section" id="timerSection">
+            <h2 class="timer-title">До дня рождения осталось:</h2>
+            <div class="timer-container">
+                <div class="timer-block">
+                    <span class="timer-number" id="days">00</span>
+                    <span class="timer-label">дней</span>
+                </div>
+                <div class="timer-block">
+                    <span class="timer-number" id="hours">00</span>
+                    <span class="timer-label">часов</span>
+                </div>
+                <div class="timer-block">
+                    <span class="timer-number" id="minutes">00</span>
+                    <span class="timer-label">минут</span>
+                </div>
+                <div class="timer-block">
+                    <span class="timer-number" id="seconds">00</span>
+                    <span class="timer-label">секунд</span>
+                </div>
+            </div>
+        </section>
+
+        <!-- Birthday Message Section (Hidden initially) -->
+        <section class="birthday-section" id="birthdaySection" style="display: none;">
+            <div class="birthday-message">
+                <h2 class="birthday-title">🎉 С ДНЕМ РОЖДЕНИЯ! 🎉</h2>
+                <div class="matrix-text">WELCOME TO THE REAL WORLD</div>
+                <div class="celebration-text">Сегодня нашему имениннику исполняется 20 лет!</div>
+            </div>
+        </section>
+
+        <!-- About Birthday Person Button -->
+        <section class="about-section">
+            <button class="about-btn" id="aboutBtn">ОБ ИМЕНИННИКЕ</button>
+        </section>
+
+        <!-- Modal with Information -->
+        <div class="modal" id="modal">
+            <div class="modal-content">
+                <span class="close-btn" id="closeBtn">&times;</span>
+                <h3 class="modal-title">Информация об имениннике</h3>
+                <div class="info-grid">
+                    <div class="info-item">
+                        <span class="info-label">Имя именинника:</span>
+                        <span class="info-value">Арман Бақдәулет Арманұлы</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">День рождения именинника:</span>
+                        <span class="info-value">11 июня 2005 года</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Образование:</span>
+                        <span class="info-value">Студент 3 курса Кызылординского университета им. Коркыт Ата</span>
+                    </div>
+                    <div class="info-item">
+                        <span class="info-label">Хотите поздравить именинника:</span>
+                        <div class="contact-info">
+                            <a href="tel:+77054311881" class="phone-link">+7 705 431 18 81</a>
+                            <a href="tel:+77478997841" class="phone-link">+7 747 899 78 41</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Matrix Symbols -->
+        <div class="matrix-symbols">
+            <span class="matrix-symbol">0</span>
+            <span class="matrix-symbol">1</span>
+            <span class="matrix-symbol">{ }</span>
+            <span class="matrix-symbol">&lt;/&gt;</span>
+            <span class="matrix-symbol">λ</span>
+            <span class="matrix-symbol">∞</span>
+        </div>
+    </div>
+
+    <script src="20day.js"></script>
+</body>
+</html>
