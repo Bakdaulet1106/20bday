@@ -1,4 +1,3 @@
-
 // Matrix Rain Effect
 class MatrixRain {
     constructor() {
@@ -173,6 +172,122 @@ class ModalController {
     }
 }
 
+// Congratulations Manager
+class CongratulationsManager {
+    constructor() {
+        this.addMessageBtn = document.getElementById('addMessageBtn');
+        this.messagesContainer = document.getElementById('messagesContainer');
+        this.senderNameInput = document.getElementById('senderName');
+        this.messageTextInput = document.getElementById('messageText');
+        
+        this.addMessageBtn.addEventListener('click', () => this.addMessage());
+        
+        // Allow sending message with Enter key (Ctrl+Enter for textarea)
+        this.messageTextInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && e.ctrlKey) {
+                this.addMessage();
+            }
+        });
+        
+        this.loadMessages();
+    }
+    
+    addMessage() {
+        const senderName = this.senderNameInput.value.trim();
+        const messageText = this.messageTextInput.value.trim();
+        
+        if (!senderName || !messageText) {
+            this.showNotification('Пожалуйста, заполните все поля!', 'error');
+            return;
+        }
+        
+        const message = {
+            id: Date.now(),
+            sender: senderName,
+            text: messageText,
+            timestamp: new Date().toLocaleString('ru-RU')
+        };
+        
+        this.saveMessage(message);
+        this.displayMessage(message);
+        this.clearForm();
+        this.showNotification('Поздравление добавлено!', 'success');
+    }
+    
+    saveMessage(message) {
+        let messages = JSON.parse(localStorage.getItem('birthdayMessages') || '[]');
+        messages.unshift(message); // Add to beginning
+        localStorage.setItem('birthdayMessages', JSON.stringify(messages));
+    }
+    
+    loadMessages() {
+        const messages = JSON.parse(localStorage.getItem('birthdayMessages') || '[]');
+        messages.forEach(message => this.displayMessage(message));
+        
+        if (messages.length === 0) {
+            this.showWelcomeMessage();
+        }
+    }
+    
+    displayMessage(message) {
+        const messageElement = document.createElement('div');
+        messageElement.className = 'message-item';
+        messageElement.innerHTML = `
+            <div class="message-time">${message.timestamp}</div>
+            <div class="message-sender">${this.escapeHtml(message.sender)}</div>
+            <div class="message-text">${this.escapeHtml(message.text)}</div>
+        `;
+        
+        this.messagesContainer.insertBefore(messageElement, this.messagesContainer.firstChild);
+    }
+    
+    showWelcomeMessage() {
+        const welcomeMessage = {
+            sender: '🎉 Система',
+            text: 'Добро пожаловать! Будьте первым, кто поздравит именинника с 20-летием!',
+            timestamp: new Date().toLocaleString('ru-RU')
+        };
+        this.displayMessage(welcomeMessage);
+    }
+    
+    clearForm() {
+        this.senderNameInput.value = '';
+        this.messageTextInput.value = '';
+    }
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    }
+    
+    showNotification(message, type) {
+        const notification = document.createElement('div');
+        notification.textContent = message;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: ${type === 'success' ? 'rgba(0, 255, 0, 0.9)' : 'rgba(255, 0, 0, 0.9)'};
+            color: #000;
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-family: 'Orbitron', monospace;
+            font-weight: bold;
+            z-index: 10000;
+            box-shadow: 0 0 20px ${type === 'success' ? '#00ff00' : '#ff0000'};
+            animation: slideInRight 0.3s ease-out;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease-out forwards';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
+    }
+}
+
 // Sound Effects Controller
 class SoundController {
     constructor() {
@@ -261,6 +376,7 @@ document.addEventListener('DOMContentLoaded', () => {
     new MatrixRain();
     new BirthdayTimer();
     new ModalController();
+    new CongratulationsManager();
     new KeyboardEffects();
     
     // Easter egg: Konami code
